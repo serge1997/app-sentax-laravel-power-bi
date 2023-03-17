@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('relatorios', function (Blueprint $table) {
             $table->increments("id");
-            $table->text("pb1um")->nullable();
-            $table->text("pbidois")->nullable();
-            $table->text("pbitres")->nullable();
+            $table->text("kimberly")->nullable();
+            $table->text("quimicos")->nullable();
+            $table->text("rubbermaid")->nullable();
+            $table->text("outros")->nullable();
+            $table->text("estoque")->nullable();
             $table->integer("usuario_id")->unsigned();
             $table->foreign("usuario_id")->references("id")
                 ->on("users")->onDelete("cascade");

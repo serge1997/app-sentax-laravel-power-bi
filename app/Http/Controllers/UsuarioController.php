@@ -31,9 +31,10 @@ class UsuarioController extends Controller
         $user = new User($values);
         $user->password = bcrypt($user->password);
 
+        
         $user->save();
 
-       return redirect()->route("cadastra");
+       return redirect()->route("cadastra")->with("success", "Cadastro realizado com succeso");
         
     }
 
@@ -79,41 +80,86 @@ class UsuarioController extends Controller
         return redirect()->route("logar");
     }
 
-    public function getbi(Request $request)
+    public function getkimberly(Request $request)
     {
         $iduser = $request->iduser;
         //$relatorio = Relatorio::WHERE("usuario_id", $iduser)->get();
-        $relatorio = Relatorio::select('pbidois')->where('usuario_id', $iduser)->get();
+        $relatorio = Relatorio::select('kimberly')->where('usuario_id', $iduser)->get();
         
 
-        return view("relatorio", ['relatorio' => $relatorio]);
+        foreach($relatorio as $kimberly){
+
+            $kimberly->kimberly;
+        }
+
+        echo $kimberly->kimberly;
     }
 
-    public function getbisecond(Request $request)
+    public function getquimicos(Request $request)
     {
         $iduser = $request->iduser;
 
-        $relatorio = Relatorio::select('pb1um')->where('usuario_id', $iduser)->get();
+        $relatorio = Relatorio::select('quimicos')->where('usuario_id', $iduser)->get();
 
-        foreach($relatorio as $bi){
-            $bi->pb1um;
+        foreach($relatorio as $quimicos){
+            $quimicos->quimicos;
         }
-        echo $bi->pb1um;
+
+        echo $quimicos->quimicos;
     }
 
-    public function getbithree(Request $request)
+    public function getrubbermaid(Request $request)
     {
         $iduser = $request->iduser;
        
-        $relatorio = Relatorio::select('pbitres')->where('usuario_id', $iduser)
+        $relatorio = Relatorio::select('rubbermaid')->where('usuario_id', $iduser)
             ->get();
 
-        foreach($relatorio as $bi){
-            $bi->pbitres;
+        foreach($relatorio as $rubbermaid){
+            $rubbermaid->rubbermaid;
         }
 
-        echo $bi->pbitres;
+        echo $rubbermaid->rubbermaid;
     }
 
+
+    public function getoutros(Request $request)
+    {
+        $iduser = $request->iduser;
+
+        $relatorio = Relatorio::select('outros')->where('usuario_id', $iduser);
+
+        foreach($relatorio as $outros){
+            $outros->outros;
+        }
+
+        echo $outros->outros;
+    }
+
+    public function getestoque(Request $request)
+    {
+        $iduser = $request->iduser;
+
+        $relatorio = Relatorio::select('estoque')
+            ->where('usuario_id', $iduser)
+            ->get();
+
+        foreach($relatorio as $estoque){
+            $estoque->estoque;
+        }
+
+        echo $estoque->estoque;
+    }
+
+    public function acesso()
+    {
+        $data = [];
+
+        $users = User::all();
+
+        $data['users'] = $users;
+
+        return view('acesso', $data);
+    }
     
 }

@@ -1,6 +1,4 @@
-@extends('layouts.main')
-
-@section("content")
+@vite('resources/css/app.css')
 <div class="min-h-screen flex justify-center items-center">
     <div class="flex flex-row flex-wrap justify-center p-8 border shadow">
         <div class="w-96 p-8">
@@ -41,4 +39,3 @@
         </div>
       </div>
   </div>
-@endsection

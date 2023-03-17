@@ -11,9 +11,11 @@ class Relatorio extends Model
 
     protected $table = "relatorios";
     protected $fillable = [
-        'pb1um',
-        'pbdois',
-        'pbitres',
+        'kimberly',
+        'quimicos',
+        'rubbermaid',
+        'outros',
+        'estoque',
         'usuario_id',
     ];
 }

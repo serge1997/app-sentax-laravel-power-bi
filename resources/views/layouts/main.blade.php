@@ -23,11 +23,23 @@
 						</div>
 						<!-- Primary Navbar items -->
 						<div class="hidden md:flex items-center space-x-1 font-semibold text-gray-700">
-							<a href="{{ route('inicio') }}" class="py-4 px-2">Inicio</a>
+							
+							@guest
+								<a href="{{ route('inicio') }}" class="py-4 px-2 uppercase">Inicio</a>
+							@endguest
 							@auth
-                                <a href="#" data-first="{{ Auth::user()->id }}"  class="portal-um py-4 px-2 ">Portal BI</a>
-                                <a href="#" class="py-4 px-2 portal-dois">Portal BI</a>
-                                <a href="#" class="py-4 px-2 portal-tres">Portal BI</a>
+								@if (Auth::user()->funcao == 'estoque')
+									<a href="{{ route('estoque.sentax') }}" data-first="{{ Auth::user()->id }}" class="py-4 px-2 portal-um estoque capitalize">{{ Auth::user()->apelido }} estoque</a>
+								@else
+									<a href="{{ route('kimberly.sentax') }}" data-first="{{ Auth::user()->id }}"  class="kimberly py-4 px-2 capitalize">{{ Auth::user()->apelido }} kimberly</a>
+									<a href="{{ route('quimicos.sentax') }}" class="py-4 px-2 quimicos capitalize">{{ Auth::user()->apelido }} quimicos</a>
+									<a href="{{ route('rubbermaid.sentax') }}" class="py-4 px-2 text-sm rubbermaid capitalize">{{ Auth::user()->apelido }} rubbermaid</a>
+									<a href="{{ route('outros.sentax') }}" class="py-4 px-2 outros capitalize">{{ Auth::user()->apelido }} outros</a>
+								@endif
+
+								@if (Auth::user()->funcao == 'administrador')
+									<a href="{{ route('acesso') }}" class="py-4 px-2 capitalize">controle de accesso</a>
+								@endif
                             @endauth
 						</div>
 					</div>

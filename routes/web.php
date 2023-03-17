@@ -27,18 +27,27 @@ Route::match(['get', 'post'], '/logout', [UsuarioController::class, 'logout'])
     ->name("sair");
 
     
-Route::match(['get', 'post'], 'logar', [UsuarioController::class, 'logar'])
+Route::match(['get', 'post'], '/logar', [UsuarioController::class, 'logar'])
     ->name("logar");
 
-Route::post("/bi/sentax", [UsuarioController::class, 'getbi'])
-    ->name('bi.sentax');
+Route::post("/kimberly/sentax", [UsuarioController::class, 'getkimberly'])
+    ->name('kimberly.sentax');
 
-Route::post("/bi/sentax/2", [UsuarioController::class, 'getbisecond'])
-    ->name('bi.sentaxdois');
+Route::post("/quimicos/sentax", [UsuarioController::class, 'getquimicos'])
+    ->name('quimicos.sentax');
 
-Route::post("/bi/sentax/3", [UsuarioController::class, 'getbithree'])
-    ->name("bi.sentaxtres");
+Route::post("/rubbermaid/sentax", [UsuarioController::class, 'getrubbermaid'])
+    ->name("rubbermaid.sentax");
+
+Route::post("/outros/sentax", [UsuarioController::class, 'getoutros'])
+    ->name('outros.sentax');
     
+Route::post("/estoque/sentax", [UsuarioController::class, 'getestoque'])
+    ->name('estoque.sentax');
+
+Route::match(['get', 'post'], "/controle/acessso", [UsuarioController::class, 'acesso'])
+    ->name('acesso');
+
 Route::get('/relatorio', function(){
     return view("relatorio");
 });
