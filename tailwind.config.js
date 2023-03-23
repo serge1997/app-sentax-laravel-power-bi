@@ -6,7 +6,12 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      translate: {
+        '9': '-1.6rem'
+        
+      }
+    },
   },
   plugins: [],
 }

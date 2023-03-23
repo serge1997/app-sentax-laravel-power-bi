@@ -55,3 +55,52 @@ $('button.mobile-menu-button').on('click', function(){
       $('#relatorio').attr("src", result)
     })
   })
+
+  //modal confirmação apaga do usuario
+
+  $(document).ready(function(){
+   $('.idModal').on('click', function(e){
+    e.preventDefault()
+    let iduser = $(this).attr('data-id')
+    
+    $.post('/excluir/confirmar', {idusuario: iduser}, (result)=>{
+      $('.nome-user').html(result)
+      console.log(result)
+    })
+   })
+  })
+
+  $(document).ready(function(){
+    $('#FormEdit').submit(function(e){
+      e.preventDefault()
+      let usuario = $(this).attr('data-user')
+      let e_mail = $('#email').val()
+      let senha = $('#senha').val()
+      let conf_senha = $('#conf-senha').val()
+      let func = $('#funcao').val()
+      
+      $.post('/acesso/usuario/editado', {id:usuario, email:e_mail, password:senha, confpassword: conf_senha, funcao:func}, (result)=>{
+        console.log(result)
+        $('#info').html(result)
+      })
+      $('#email').val("")
+    })
+  })
+
+  $(document).ready(function(){
+    let ocultar = false
+    
+    $('#icon').on('click', function(){
+
+      ocultar = !ocultar
+
+      if(ocultar){
+        $('#loginPassword').attr('type', 'text')
+        $(this).removeClass('fa-eye').addClass('fa-sharp fa-solid fa-eye-slash')
+      }else{
+        $('#loginPassword').attr('type', 'password')
+        $(this).removeClass('fa-sharp fa-solid fa-eye-slash').addClass('fa-solid fa-eye')
+      }
+    })
+  })
+  

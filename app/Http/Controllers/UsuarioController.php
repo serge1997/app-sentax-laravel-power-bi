@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Relatorio;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -31,8 +32,22 @@ class UsuarioController extends Controller
         $user = new User($values);
         $user->password = bcrypt($user->password);
 
+        try{
+
+            $emailUnique = User::where('email', $user->email)->first();
+
+            if($emailUnique){
+                return redirect()->route('cadastra')
+                    ->with('err', "O e-email já existe no sistema");
+            }
+            $user->save();
+
+        }catch(\Exception $e){
+
+            return redirect()->route('cadastra')
+                ->with("err", "O usuario não pode ser cadastrado");
+        }
         
-        $user->save();
 
        return redirect()->route("cadastra")->with("success", "Cadastro realizado com succeso");
         
@@ -61,11 +76,11 @@ class UsuarioController extends Controller
             if(Auth::attempt($credentials)){
 
                 $request->session()->regenerate();
-                return redirect()->intended("/");
+                return redirect()->intended("inicio");
 
             }else{
     
-                return redirect("logar")->with("err", "Usuario ou senha incoreto");
+                return redirect()->route("logar")->with("err", "Usuario ou senha incoreto");
             }
             
         }
@@ -156,10 +171,64 @@ class UsuarioController extends Controller
         $data = [];
 
         $users = User::all();
-
+        
         $data['users'] = $users;
 
         return view('acesso', $data);
+    }
+
+    public function destroy($id)
+    {
+        $iddelete = User::find($id);
+
+        $delete = User::where('id', $id)
+            ->delete();
+
+        return redirect()->route('acesso');
+        
+    }
+
+    public function confirmDelete(Request $request)
+    {
+        $idusuario = $request->idusuario;
+        $user = User::where('id', $idusuario)->get();
+        $data['user'] = $user;
+
+       return view('acesso.out', $data);
+        
+    }
+
+    public function edit($id)
+    {
+        $iduser = User::find($id);
+        
+        $edituser = User::where('id', $id)
+            ->get();
+
+        $data['id'] = $iduser;
+        $data['user'] = $edituser;
+
+        return view('acesso.editar', $data);
+    }
+
+    public function update(Request $request)
+    {
+
+        $id = $request->id;
+        $email = $request->email;
+        $password = \bcrypt($request->password);
+        $funcao = $request->funcao;
+
+        
+        $update = DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'email'=> $email,
+                'password'=> $password,
+                'funcao'=> $funcao
+            ]);
+        
+        return "Edição realizado com sucesso";
     }
     
 }

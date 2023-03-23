@@ -5,6 +5,9 @@
       <div class="form-card">
           <div class="form">
             <h1 class="text-lg font-bold text-slate-800 text-center uppercase">Cadastrar usuario</h1>
+            @if (session('err'))
+              <p class="text-red-500">* {{ session('err') }}</p> 
+            @endif
             @if (session('success'))
                 <p class="p-2 text-green-600 ">{{ session('success') }}</p>
             @endif

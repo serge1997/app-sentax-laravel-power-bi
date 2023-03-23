@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
         '/rubbermaid/sentax',
         '/outros/sentax',
         '/estoque/sentax',
+        '/excluir/confirmar',
+        '/acesso/usuario/editado'
         
     ];
 }
